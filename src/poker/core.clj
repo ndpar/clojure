@@ -1,6 +1,11 @@
 (ns poker.core)
 
+(defn hand-rank
+  "TODO"
+  []
+  nil)
+
 (defn poker
   "Return the best hand: (poker [hand,...]) => hand"
   [hands]
-  nil)
+  (max-key hand-rank hands))
