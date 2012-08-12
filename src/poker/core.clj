@@ -1,6 +1,6 @@
 (ns poker.core)
 
-(defn -main
-  "I don't do a whole lot."
-  [& args]
-  (println "Hello, World!"))
+(defn poker
+  "Return the best hand: (poker [hand,...]) => hand"
+  [hands]
+  nil)
