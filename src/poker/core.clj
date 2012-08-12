@@ -1,8 +1,8 @@
 (ns poker.core)
 
 (defn hand-rank
-  "TODO"
-  []
+  "Return a value indicating the ranking of a hand"
+  [hand]
   nil)
 
 (defn poker
