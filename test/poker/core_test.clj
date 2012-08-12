@@ -17,4 +17,8 @@
     (testing "Four of a kind wins Full house"
       (is (= fk (poker [fk fh]))))
     (testing "Full house wins itself"
-      (is (= fh (poker [fh fh]))))))
+      (is (= fh (poker [fh fh]))))
+    (testing "Extreme case: Single hand is allowed in poker function"
+      (is (= sf (poker [sf]))))
+    (testing "Extreme case: 100 hands are allowed in poker function"
+      (is (= sf (poker (conj (vec (repeat 99 fh)) sf)))))))
