@@ -1,9 +1,10 @@
 (ns poker.core)
 
 (defn card-ranks
-  "TODO"
+  "Return a list of the ranks, sorted with higher first"
   [hand]
-  nil)
+  (let [ranks (for [card hand] (.indexOf "--23456789TJQKA" (str (first card))))]
+    (reverse (sort ranks))))
 
 (defn straight?
   "TODO"
