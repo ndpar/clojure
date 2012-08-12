@@ -11,6 +11,18 @@
       fk (hand "9D 9H 9S 9C 7D")
       fh (hand "TD TC TH 7C 7D")]
 
+  (deftest flush-test
+    (testing "Straight flush is flush"
+      (is (flush? sf)))
+    (testing "Full house is not flush"
+      (is (not (flush? fh)))))
+
+  (deftest straight-test
+    (testing "Consecutive numbers is straight"
+      (is (straight? [10 9 8 7 6])))
+    (testing "Two eights is not sraight"
+      (is (not (straight? [9 8 8 7 6])))))
+
   (deftest card-ranks-test
     (testing "Straight flush card ranks"
       (is (= [10 9 8 7 6] (card-ranks sf))))
