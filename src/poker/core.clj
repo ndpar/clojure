@@ -33,11 +33,11 @@
   [hand]
   (let [ranks (card-ranks hand)]
     (cond
-      (and (straight? ranks) (flush? hand)) [8 (max ranks)]
+      (and (straight? ranks) (flush? hand)) [8 (apply max ranks)]
       (< 0 (kind 4 ranks)) [7 (kind 4 ranks) (kind 1 ranks)]
       (and (< 0 (kind 3 ranks)) (< 0 (kind 2 ranks))) [6 (kind 3 ranks) (kind 2 ranks)]
       (flush? hand) [5 (card-ranks hand)]
-      (straight? ranks) [4 (max ranks)]
+      (straight? ranks) [4 (apply max ranks)]
       (< 0 (kind 3 ranks)) [3 (kind 3 ranks) (card-ranks hand)]
       (< 0 (two-pair ranks)) [2 (two-pair ranks) (card-ranks hand)]
       (< 0 (kind 2 ranks)) [1 (kind 2 ranks) (card-ranks hand)]
