@@ -7,14 +7,16 @@
     (reverse (sort ranks))))
 
 (defn straight?
-  "TODO"
+  "Return True if the ordered ranks form a 5-card straight"
   [ranks]
-  nil)
+  (and (= 4 (- (apply max ranks) (apply min ranks)))
+       (= 5 (count (set ranks)))))
 
 (defn flush?
-  "TODO"
+  "Return True if all the cards have the same suit"
   [hand]
-  nil)
+  (let [suits (for [card hand] (second card))]
+    (= 1 (count (set suits)))))
 
 (defn kind
   "TODO"
