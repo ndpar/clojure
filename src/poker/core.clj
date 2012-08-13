@@ -20,15 +20,18 @@
 
 (defn kind
   "Return the first rank that this hand has exactly n of.
-   Return None if there is no n-of-a-kind in the hand"
+   Return nil if there is no n-of-a-kind in the hand"
   [n ranks]
   (let [occur (set (for [r ranks :when (= n (count (filter #(= r %) ranks)))] r))]
     (if (= 0 (count occur)) nil (first occur))))
 
 (defn two-pair
-  "TODO"
+  "If there are two pair, return the two ranks as a
+   tuple: (highest, lowest); otherwise return nil"
   [ranks]
-  0)
+  (let [fcount (count (filter #(= (nth ranks 1) %) ranks))
+        scount (count (filter #(= (nth ranks 3) %) ranks))]
+    (if (and (= 2 fcount) (= 2 scount)) [(nth ranks 1) (nth ranks 3)] nil)))
 
 (defn hand-rank
   "Return a value indicating the ranking of a hand"
