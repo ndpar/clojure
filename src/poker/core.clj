@@ -19,9 +19,11 @@
     (= 1 (count (set suits)))))
 
 (defn kind
-  "TODO"
+  "Return the first rank that this hand has exactly n of.
+   Return None if there is no n-of-a-kind in the hand"
   [n ranks]
-  0)
+  (let [occur (set (for [r ranks :when (= n (count (filter #(= r %) ranks)))] r))]
+    (if (= 0 (count occur)) nil (first occur))))
 
 (defn two-pair
   "TODO"
