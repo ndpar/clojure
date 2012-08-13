@@ -9,7 +9,28 @@
 
 (let [sf (hand "6C 7C 8C 9C TC")
       fk (hand "9D 9H 9S 9C 7D")
-      fh (hand "TD TC TH 7C 7D")]
+      fh (hand "TD TC TH 7C 7D")
+      tp (hand "5S 5D 9H 9C 6S")]
+
+  (deftest kind-test
+    (let [fkranks (card-ranks fk)
+          tpranks (card-ranks tp)]
+      (testing "Four of a kind contains 4 cards of a kind"
+        (is (= 9 (kind 4 fkranks))))
+      (testing "Four of a kind does not contain 3 cards of a kind"
+        (is (= nil (kind 3 fkranks))))
+      (testing "Four of a kind does not contain 2 cards of a kind"
+        (is (= nil (kind 2 fkranks))))
+      (testing "Four of a kind contains 1 card of a kind"
+        (is (= 7 (kind 1 fkranks))))))
+
+  (deftest two-pair-test
+    (let [fkranks (card-ranks fk)
+          tpranks (card-ranks tp)]
+      (testing "Four of a kind does not have a pair"
+        (is (= nil (two-pair fkranks))))
+      (testing "Two pairs does contain a pair"
+        (is (= [9 5] (two-pair tpranks))))))
 
   (deftest flush-test
     (testing "Straight flush is flush"
