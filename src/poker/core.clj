@@ -4,7 +4,7 @@
   "Return a list of the ranks, sorted with higher first"
   [hand]
   (let [ranks (for [card hand] (.indexOf "--23456789TJQKA" (str (first card))))]
-    (reverse (sort ranks))))
+    (vec (reverse (sort ranks)))))
 
 (defn straight?
   "Return True if the ordered ranks form a 5-card straight"
@@ -39,16 +39,26 @@
   (let [ranks (card-ranks hand)]
     (cond
       (and (straight? ranks) (flush? hand)) [8 (apply max ranks)]
-      (< 0 (kind 4 ranks)) [7 (kind 4 ranks) (kind 1 ranks)]
-      (and (< 0 (kind 3 ranks)) (< 0 (kind 2 ranks))) [6 (kind 3 ranks) (kind 2 ranks)]
+      (kind 4 ranks) [7 (kind 4 ranks) (kind 1 ranks)]
+      (and (kind 3 ranks) (kind 2 ranks)) [6 (kind 3 ranks) (kind 2 ranks)]
       (flush? hand) [5 (card-ranks hand)]
       (straight? ranks) [4 (apply max ranks)]
-      (< 0 (kind 3 ranks)) [3 (kind 3 ranks) (card-ranks hand)]
-      (< 0 (two-pair ranks)) [2 (two-pair ranks) (card-ranks hand)]
-      (< 0 (kind 2 ranks)) [1 (kind 2 ranks) (card-ranks hand)]
+      (kind 3 ranks) [3 (kind 3 ranks) (card-ranks hand)]
+      (two-pair ranks) [2 (two-pair ranks) (card-ranks hand)]
+      (kind 2 ranks) [1 (kind 2 ranks) (card-ranks hand)]
       :else [0 (card-ranks hand)])))
+
+(defn compare-hands
+  "Return comparator of two hands. This function wouldn't be needed if compare
+   function compared two different-size vectors by elements, not by length.
+   http://clojuredocs.org/clojure_core/clojure.core/compare"
+  [h1 h2]
+  (let [head-comp (compare (first h1) (first h2))]
+    (if (not= 0 head-comp)
+      head-comp
+      (compare (vec (rest h1)) (vec (rest h2))))))
 
 (defn poker
   "Return the best hand: (poker [hand,...]) => hand"
   [hands]
-  (max-key hand-rank hands))
+  (first (reverse (sort-by hand-rank compare-hands hands))))
