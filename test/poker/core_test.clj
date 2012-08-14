@@ -11,7 +11,9 @@
       fk (hand "9D 9H 9S 9C 7D")
       fh (hand "TD TC TH 7C 7D")
       fl (hand "2D 4D AD 7D 9D")
-      st (hand "6S 7S 8D 9S 5S")
+      sa (hand "AS 2S 3D 4S 5S")
+      s2 (hand "2S 3S 4D 5S 6S")
+      s5 (hand "6S 7S 8D 9S 5S")
       tk (hand "2D TC 7H 7C 7D")
       tp (hand "5S 5D 9H 9C 6S")
       op (hand "5S 7D 9H 9C 6S")
@@ -68,7 +70,7 @@
     (testing "Flush rank"
       (is (= [5 [14 9 7 4 2]] (hand-rank fl))))
     (testing "Straight rank"
-      (is (= [4 9] (hand-rank st))))
+      (is (= [4 9] (hand-rank s5))))
     (testing "Three of a kind rank"
       (is (= [3 7 [10 7 7 7 2]] (hand-rank tk))))
     (testing "Two pairs rank"
@@ -87,6 +89,8 @@
       (is (= fk (poker [fk fh]))))
     (testing "Full house wins itself"
       (is (= fh (poker [fh fh]))))
+    (testing "Ace Low Straight wins Two pairs, One pair, and Jack High"
+      (is (= sa (poker [tp sa op jh]))))
     (testing "Jack High wins Ten High"
       (is (= jh (poker [jh th]))))
     (testing "Extreme case: Single hand is allowed in poker function"

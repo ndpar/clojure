@@ -3,8 +3,9 @@
 (defn card-ranks
   "Return a list of the ranks, sorted with higher first"
   [hand]
-  (let [ranks (for [card hand] (.indexOf "--23456789TJQKA" (str (first card))))]
-    (vec (reverse (sort ranks)))))
+  (let [ranks (for [card hand] (.indexOf "--23456789TJQKA" (str (first card))))
+        result (vec (reverse (sort ranks)))]
+    (if (= [14 5 4 3 2] result) [5 4 3 2 1] result)))
 
 (defn straight?
   "Return True if the ordered ranks form a 5-card straight"
