@@ -2,7 +2,7 @@
 
 A Clojure library designed to compare hands of 5-card Poker game.
 The main idea of hand comparison is taken from Peter Norvig's class
-[Design of Computer Programs][http://www.youtube.com/playlist?list=PL818D7B4539EED6D3].
+[Design of Computer Programs](http://www.youtube.com/playlist?list=PL818D7B4539EED6D3).
 `src/poker/core.clj` is in fact a Clojure port of Norvig's program written in Python.
 
 Two hands are compared by hand rank. A hand rank is a tuple with the first
@@ -14,7 +14,7 @@ hands of the same type. For example, [8 14] is Royal flush and it beats
 
 ## Usage
 
-To run test cases you need [Leiningen][http://leiningen.org] installed
+To run test cases you need [Leiningen](http://leiningen.org) installed
 
     lein test
 
