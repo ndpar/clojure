@@ -29,8 +29,7 @@
    tuple: (highest, lowest); otherwise return nil"
   [ranks]
   (let [how-many (fn [x col] (count (filter #(= x %) col)))
-        high (get ranks 1)
-        low (get ranks 3)
+        {high 1, low 3} ranks
         hcount (how-many high ranks)
         lcount (how-many low ranks)]
     (if (= 2 hcount lcount) [high low] nil)))
@@ -50,17 +49,17 @@
       (kind 2 ranks) [1 (kind 2 ranks) ranks]
       :else [0 ranks])))
 
-(defn compare-hands
+(defn compare-seq
   "Return comparator of two hands. This function wouldn't be needed if compare
    function compared two different-size vectors by elements, not by length.
    http://clojuredocs.org/clojure_core/clojure.core/compare"
   [h1 h2]
   (let [head-comp (compare (first h1) (first h2))]
-    (if (not= 0 head-comp)
-      head-comp
-      (compare (vec (rest h1)) (vec (rest h2))))))
+    (if (and (zero? head-comp) h1 h2)
+      (recur (next h1) (next h2))
+      head-comp)))
 
 (defn poker
   "Return the best hand: (poker [hand,...]) => hand"
   [hands]
-  (last (sort-by hand-rank compare-hands hands)))
+  (last (sort-by hand-rank compare-seq hands)))
