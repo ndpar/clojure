@@ -1,6 +1,6 @@
-(ns poker.core-test
+(ns dojo.poker-test
   (:use clojure.test
-        poker.core))
+        dojo.poker))
 
 (defn hand
   "Convert string to hand format"

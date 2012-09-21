@@ -1,4 +1,4 @@
-(ns poker.core)
+(ns dojo.poker)
 
 (defn card-ranks
   "Return a list of the ranks, sorted with higher first"

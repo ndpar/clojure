@@ -1,9 +1,14 @@
-# Poker hand evaluator
+# Clojure Katas
+
+A collection of short problems discussed and solved at
+[Toronto Coding Dojo](http://www.meetup.com/Toronto-Coding-Dojo/).
+
+## Poker hand evaluator
 
 A Clojure library designed to compare hands of 5-card Poker game.
 The main idea of hand comparison is taken from Peter Norvig's class
 [Design of Computer Programs](http://www.youtube.com/playlist?list=PL818D7B4539EED6D3).
-`src/poker/core.clj` is in fact a Clojure port of Norvig's program written in Python.
+`src/dojo/poker.clj` is in fact a Clojure port of Norvig's program written in Python.
 
 Two hands are compared by hand rank. A hand rank is a tuple with the first
 element an integer from the range 0..8 defining the type of the hand: 8 is
@@ -20,6 +25,6 @@ To run test cases you need [Leiningen](http://leiningen.org) installed
 
 ## License
 
-Copyright © 2012 Andy Paramonov
+Copyright © 2012 Andrey Paramonov
 
 Distributed under the Apache License, Version 2.0.
