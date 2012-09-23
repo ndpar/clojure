@@ -17,6 +17,10 @@ Second and (optional) third elements of the tuple are used to compare two
 hands of the same type. For example, [8 14] is Royal flush and it beats
 [8 10] which is straight flush ten high.
 
+## Bank OCR
+
+http://www.codingdojo.org/cgi-bin/wiki.pl?KataBankOCR
+
 ## Usage
 
 To run test cases you need [Leiningen](http://leiningen.org) installed
