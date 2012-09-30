@@ -22,10 +22,10 @@
   "Return the first rank that this hand has exactly n of.
    Return nil if there is no n-of-a-kind in the hand"
   [n ranks]
-  (->> (frequencies ranks) (filter #(= (second %) n)) (map first) (sort) (last)))
+  (->> (frequencies ranks) (filter (comp (partial = n) val)) sort last first))
 
 (defn two-pair
-  "If there are two pair, return the two ranks as a
+  "If there are two pairs, return the two ranks as a
    tuple: (highest, lowest); otherwise return nil"
   [ranks]
   (let [how-many (fn [x col] (count (filter #(= x %) col)))
