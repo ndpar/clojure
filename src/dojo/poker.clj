@@ -49,17 +49,9 @@
       (kind 2 ranks) [1 (kind 2 ranks) ranks]
       :else [0 ranks])))
 
-(defn compare-seq
-  "Return comparator of two hands. This function wouldn't be needed if compare
-   function compared two different-size vectors by elements, not by length.
-   http://clojuredocs.org/clojure_core/clojure.core/compare"
-  [h1 h2]
-  (let [head-comp (compare (first h1) (first h2))]
-    (if (and (zero? head-comp) h1 h2)
-      (recur (next h1) (next h2))
-      head-comp)))
+(def restv (comp vec rest))
 
 (defn poker
   "Return the best hand: (poker [hand,...]) => hand"
   [hands]
-  (last (sort-by hand-rank compare-seq hands)))
+  (last (sort-by (comp (juxt first restv) hand-rank) hands)))
