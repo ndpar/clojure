@@ -11,12 +11,12 @@
   "Return true if the ordered ranks form a 5-card straight"
   [ranks]
   (and (= 4 (- (first ranks) (last ranks)))
-       (= 5 (count (set ranks)))))
+       (= 5 (count (distinct ranks)))))
 
 (defn flush?
   "Return true if all the cards have the same suit"
   [hand]
-  (= 1 (count (set (map second hand)))))
+  (= 1 (count (distinct (map second hand)))))
 
 (defn kind
   "Return the first rank that this hand has exactly n of.
