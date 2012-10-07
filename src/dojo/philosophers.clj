@@ -14,7 +14,7 @@
       (enjoy-meal))))
 
 (defn log [thread & message]
-  (println (System/currentTimeMillis) ":" (inc thread) message))
+  (io! (println (System/currentTimeMillis) ":" (inc thread) message)))
 
 (defn think [] (Thread/sleep (rand-int 500)))
 
