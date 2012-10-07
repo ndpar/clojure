@@ -2,29 +2,38 @@
 
 (ns dojo.philosophers)
 
-(defn forks [n] (mapv ref (repeat n 0)))
+(defn now [] (System/currentTimeMillis))
 
-(defn enjoy-meal [] (Thread/sleep (rand-int 500)))
+(def logger (agent 0))
+
+(defn do-log [msg-id message]
+  (println message)
+  (inc msg-id))
+
+(defn log [thread action time]
+  (send-off logger do-log [time (inc thread) action]))
+
+
+(defn forks [n] (mapv ref (repeat n 0)))
 
 (defn eat [phil forks]
   (let [place (map #(mod % (count forks)) [phil (inc phil)])]
     (dosync
+      (log phil {:eating :begin} (now))
       (alter (forks (first place)) inc) ; grab right fork
       (alter (forks (second place)) inc) ; grab left fork
-      (enjoy-meal))))
+      (Thread/sleep (rand-int 500))
+      (log phil {:eating :end} (now)))))
 
-(defn log [thread & message]
-  (io! (println (System/currentTimeMillis) ":" (inc thread) message)))
-
-(defn think [] (Thread/sleep (rand-int 500)))
+(defn think [phil]
+  (log phil {:thinking :begin} (now))
+  (Thread/sleep (rand-int 500))
+  (log phil {:thinking :end} (now)))
 
 (defn philosopher [id meals forks]
   (dotimes [m meals]
-    (log id "thinking")
-    (think)
-    (log id "hungry")
-    (eat id forks)
-    (log id "ate" (inc m) "meal")))
+    (think id)
+    (eat id forks)))
 
 (defn dine
   ([people meals]
