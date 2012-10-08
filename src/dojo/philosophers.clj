@@ -4,11 +4,10 @@
 
 (defn now [] (System/currentTimeMillis))
 
-(def logger (agent 0))
+(def logger (agent []))
 
-(defn do-log [msg-id message]
-  (println message)
-  (inc msg-id))
+(defn do-log [log message]
+  (conj log message))
 
 (defn log [thread action time]
   (send-off logger do-log [time (inc thread) action]))
@@ -19,16 +18,16 @@
 (defn eat [phil forks]
   (let [place (map #(mod % (count forks)) [phil (inc phil)])]
     (dosync
-      (log phil {:eating :begin} (now))
+      (log phil [:eating :begin] (now))
       (alter (forks (first place)) inc) ; grab right fork
       (alter (forks (second place)) inc) ; grab left fork
-      (Thread/sleep (rand-int 500))
-      (log phil {:eating :end} (now)))))
+      (Thread/sleep (rand-int 200))
+      (log phil [:eating :end] (now)))))
 
 (defn think [phil]
-  (log phil {:thinking :begin} (now))
-  (Thread/sleep (rand-int 500))
-  (log phil {:thinking :end} (now)))
+  (log phil [:thinking :begin] (now))
+  (Thread/sleep (rand-int 200))
+  (log phil [:thinking :end] (now)))
 
 (defn philosopher [id meals forks]
   (dotimes [m meals]

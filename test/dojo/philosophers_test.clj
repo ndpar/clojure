@@ -2,7 +2,7 @@
   (:use clojure.test
         dojo.philosophers))
 
-(deftest eat-test
+(comment deftest eat-test
          (let [forks (forks 5)]
            (eat 0 forks)
            (is (= [1 1 0 0 0] (mapv deref forks)))
@@ -17,5 +17,7 @@
 (deftest dine-test
          (let [forks (forks 5)]
            (dine 5 3 forks)
-           (is (= [6 6 6 6 6] (mapv deref forks)))))
+           ;(print (sort @logger))
+           (is (= [6 6 6 6 6] (mapv deref forks)))
+           (is (= (* 5 3 4) (count @logger)))))
 
