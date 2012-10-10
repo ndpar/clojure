@@ -17,7 +17,7 @@
 (deftest dine-test
          (let [forks (forks 5)]
            (dine 5 3 forks)
-           ;(print (sort @logger))
            (is (= [6 6 6 6 6] (mapv deref forks)))
-           (is (= (* 5 3 4) (count @logger)))))
+           (is (= (* 5 3 4) (count @logger)))
+           #_ (print (sort @logger))))
 

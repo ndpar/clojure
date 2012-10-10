@@ -1,4 +1,5 @@
 ;; http://en.wikipedia.org/wiki/Dining_philosophers_problem
+;; http://clojure.org/refs
 
 (ns dojo.philosophers)
 
@@ -10,7 +11,7 @@
   (conj log message))
 
 (defn log [thread action time]
-  (send-off logger do-log [time (inc thread) action]))
+  (send logger do-log [time (inc thread) action]))
 
 
 (defn forks [n] (mapv ref (repeat n 0)))
