@@ -21,6 +21,10 @@ hands of the same type. For example, [8 14] is Royal flush and it beats
 
 http://www.codingdojo.org/cgi-bin/wiki.pl?KataBankOCR
 
+## Dining philosophers
+
+Clojure STM in action.
+
 ## Usage
 
 To run test cases you need [Leiningen](http://leiningen.org) installed

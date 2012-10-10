@@ -1,6 +1,9 @@
-;; Author Ben Moss http://github.com/drteeth/bank-ocr-clojure
+;; http://www.codingdojo.org/cgi-bin/wiki.pl?KataBankOCR
+;;
+;; Author Ben Moss
 
 (ns dojo.ocr
+  "http://github.com/drteeth/bank-ocr-clojure"
   (:use [clojure.string :only (split)]))
 
 (defn lines [input]
