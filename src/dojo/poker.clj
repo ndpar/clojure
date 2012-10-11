@@ -18,21 +18,21 @@
   [hand]
   (= 1 (count (distinct (map second hand)))))
 
+(defn n-kinds [n ranks]
+  (filter #(= (count %) n) (partition-by identity ranks)))
+
 (defn kind
   "Return the first rank that this hand has exactly n of.
    Return nil if there is no n-of-a-kind in the hand"
   [n ranks]
-  (->> (frequencies ranks) (filter (comp (partial = n) val)) sort last first))
+  (-> (n-kinds n ranks) first first))
 
 (defn two-pair
   "If there are two pairs, return the two ranks as a
    tuple: (highest, lowest); otherwise return nil"
   [ranks]
-  (let [how-many (fn [x col] (count (filter #(= x %) col)))
-        {high 1, low 3} ranks
-        hcount (how-many high ranks)
-        lcount (how-many low ranks)]
-    (if (= 2 hcount lcount) [high low] nil)))
+  (let [pairs (n-kinds 2 ranks)]
+    (cond (= 2 (count pairs)) (first (apply map vector pairs)))))
 
 (defn hand-rank
   "Return a value indicating the ranking of a hand"
