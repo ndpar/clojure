@@ -1,11 +1,11 @@
 (ns dojo.poker)
 
 (defn card-ranks
-  "Return a list of the ranks, sorted with higher first"
+  "Return a vector of the ranks, sorted with higher first"
   [hand]
-  (let [ranks (map #(.indexOf "--23456789TJQKA" (str (first %))) hand)
-        result (vec (sort > ranks))]
-    (if (= [14 5 4 3 2] result) [5 4 3 2 1] result)))
+  (let [ranks (map #(->> % first str (.indexOf "--23456789TJQKA")) hand)
+        ranks (vec (sort > ranks))]
+    (if (= [14 5 4 3 2] ranks) [5 4 3 2 1] ranks)))
 
 (defn straight?
   "Return true if the ordered ranks form a 5-card straight"
