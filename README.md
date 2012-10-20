@@ -1,6 +1,7 @@
 # Clojure Katas
 
 A collection of short problems discussed and solved at
+[Toronto Code Retreat](http://www.meetup.com/Toronto-Code-Retreat/) and
 [Toronto Coding Dojo](http://www.meetup.com/Toronto-Coding-Dojo/).
 
 ## Poker hand evaluator
@@ -24,6 +25,10 @@ http://www.codingdojo.org/cgi-bin/wiki.pl?KataBankOCR
 ## Dining philosophers
 
 Clojure STM in action.
+
+## Inserting parentheses
+
+List manipulations example.
 
 ## Usage
 

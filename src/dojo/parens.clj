@@ -1,34 +1,31 @@
 ;; http://www.meetup.com/Toronto-Code-Retreat/events/85024432/
 
-(ns dojo.parens)
+(ns dojo.parens
+  (:use [clojure.contrib.seq :only (positions)]))
 
-(defn group-list [coll idx]
+(defn index [f items coll]
+  (f (positions (set items) coll)))
+
+(defn group-triplet [coll idx]
   (concat (take (dec idx) coll)
           (list (map #(nth coll %) [(dec idx) idx (inc idx)]))
           (drop (+ 2 idx) coll)))
 
-(defn last-operation-index [coll]
-  (when-let [inds (seq (filter pos? (map #(.lastIndexOf coll %) '(x))))]
-    (apply max inds)))
-
-(defn group-right-assoc [coll]
-  (if-let [i (last-operation-index coll)]
-    (recur (group-list coll i))
+(defn group-terms [pos operators coll]
+  (if-let [i (index pos operators coll)]
+    (recur pos operators (group-triplet coll i))
     coll))
 
-(defn first-operation-index [coll]
-  (when-let [inds (seq (filter pos? (map #(.indexOf coll %) '(+ -))))]
-    (apply min inds)))
+(def group-multiplications
+  (partial group-terms last '(x)))
 
-(defn group-left-assoc [coll]
-  (if-let [i (first-operation-index coll)]
-    (recur (group-list coll i))
-    coll))
+(def group-additions
+  (partial group-terms first '(+ -)))
 
 (defn group-sublists [coll]
   (-> coll
-    group-right-assoc
-    group-left-assoc
+    group-multiplications
+    group-additions
     first))
 
 (defn strip-outer-parens [s]
