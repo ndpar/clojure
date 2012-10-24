@@ -7,9 +7,10 @@
   (f (positions (set items) coll)))
 
 (defn group-triplet [coll idx]
-  (concat (take (dec idx) coll)
-          (list (map #(nth coll %) [(dec idx) idx (inc idx)]))
-          (drop (+ 2 idx) coll)))
+  (let [li (- idx 1), ri (+ idx 2)]
+    (concat (take li coll)
+            (list (->> coll (take ri) (drop li)))
+            (drop ri coll))))
 
 (defn group-terms [pos operators coll]
   (if-let [i (index pos operators coll)]

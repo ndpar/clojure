@@ -28,7 +28,7 @@ Clojure STM in action.
 
 ## Inserting parentheses
 
-List manipulations example.
+Lists and symbols [manipulation](blob/master/test/dojo/parens_test.clj).
 
 ## Usage
 
