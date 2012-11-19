@@ -6,15 +6,19 @@
        (when (or ~@args)
          ~@body))))
 
-(defn- handlers []
-  [(handler doc [a c]
-     (format "Document:%s:%s" a c))
+(defmacro build-handlers [& body]
+  `(defn- handlers []
+     [~@body]))
 
-   (handler note [b c]
-     (format "Note:%s:%s" b c))
+(build-handlers
+  (handler doc [a c]
+    (format "Document:%s:%s" a c))
 
-   (handler alert [a b]
-     (format "Alert:%s:%s" a b))])
+  (handler note [b c]
+    (format "Note:%s:%s" b c))
+
+  (handler alert [a b]
+    (format "Alert:%s:%s" a b)))
 
 (defn on-message [msg]
   (letfn [(handle [acc h]
