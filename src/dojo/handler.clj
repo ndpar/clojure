@@ -1,19 +1,19 @@
 (ns dojo.handler)
 
-(defn- doc-handler [msg]
-  (let [a (msg :a), c (msg :c)]
-    (when (or a c)
-      (format "Document:%s:%s" a c))))
+(defmacro handler [name args & body]
+  `(defn- ~(symbol (str name "-handler")) [~'msg]
+     (let [~@(interleave args (map (fn [x] `(get ~'msg ~(keyword x))) args))]
+       (when (or ~@args)
+         ~@body))))
 
-(defn- note-handler [msg]
-  (let [b (msg :b), c (msg :c)]
-    (when (or b c)
-      (format "Note:%s:%s" b c))))
+(handler doc [a c]
+  (format "Document:%s:%s" a c))
 
-(defn- alert-handler [msg]
-  (let [a (msg :a), b (msg :b)]
-    (when (or a b)
-      (format "Alert:%s:%s" a b))))
+(handler note [b c]
+  (format "Note:%s:%s" b c))
+
+(handler alert [a b]
+  (format "Alert:%s:%s" a b))
 
 (defn- handlers []
   [doc-handler note-handler alert-handler])
