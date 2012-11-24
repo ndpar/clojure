@@ -2,7 +2,7 @@
 
 (defmacro handler [name args & body]
   `(fn [~'msg]
-     (let [~@(interleave args (map (fn [x] `(get ~'msg ~(keyword x))) args))]
+     (let [~@(mapcat (fn [x] [x `(get ~'msg ~(keyword x))]) args)]
        (when (or ~@args)
          ~@body))))
 
