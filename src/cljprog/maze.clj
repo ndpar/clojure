@@ -19,7 +19,7 @@
               steps (zipmap (take-while unvisited walk) (next walk))]
           (recur (reduce disj walls (map set steps))
                  (reduce disj unvisited (keys steps))))
-        walls))))  
+        walls))))
 
 (defn grid [w h]
   (set (concat
@@ -46,3 +46,4 @@
     (.setVisible true)))
 
 ; (draw 3 3 #{#{[1 0] [1 1]} #{[2 1] [1 1]} #{[0 0] [0 1]} #{[1 1] [1 2]}})
+; (draw 40 40 (maze (grid 40 40)))
