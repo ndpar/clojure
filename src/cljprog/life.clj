@@ -2,7 +2,7 @@
 ;;
 ;; Inspired at Global Day of Code Retreat 2012, Toronto
 
-(ns dojo.life)
+(ns cljprog.life)
 
 ; http://clj-me.cgrand.net/2011/08/19/conways-game-of-life/
 

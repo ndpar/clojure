@@ -1,4 +1,4 @@
-(defproject dojo "0.2.0-SNAPSHOT"
+(defproject dojo "0.3.0-SNAPSHOT"
   :description "Short problems in Clojure"
   :url "http://www.meetup.com/Toronto-Coding-Dojo/"
   :license {:name "Apache License, Version 2.0"
